@@ -1,0 +1,2 @@
+|nro:        232|edad:        313|dni:   1233.123|apellido:        asd|nombre:       asdf
+|nro:         23|edad:       3213|dni:    3213.12|apellido:      asdas|nombre:      dsada
