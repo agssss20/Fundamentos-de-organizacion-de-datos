@@ -12,6 +12,8 @@ type
 	
 	tArchivo = file of mascota;//archivo de mascotas
 	
+
+	
 function existeMascota(var a:tArchivo  ; cod:integer ):integer;
 var
 	pos:integer;
@@ -35,8 +37,8 @@ var
 	m:mascota;
 begin
 	writeln('ingrese datos de la mascota a agregar: ');//leo la mascota a desear de dar de alta
-	readln(m,m.cod,m.nombre,m.especie);
-	readln(m,m.edad,m.nombreD,m.telefono);
+	readln(m.cod,m.nombre,m.especie);
+	readln(m.edad,m.nombreD,m.telefono);
 	if(existeMascota(a,m.cod) = 0)then begin //si es 0 es porque no existe
 		reset(a);
 		read(a,cabecera); //uso mi registro cabecera con mi lista invertida para poner el registro a dar de alta en el lugar deseado
@@ -61,15 +63,19 @@ end;
 procedure bajaMascota(var a:tArchivo);
 var
 	codigoABorrar,pos:integer;
-	cabecera:mascota; //el de cabecera para actualizar la lista 
+	cabecera,m:mascota; //el de cabecera para actualizar la lista 
 begin
-	wrieln('ingrese el codigo de la mascota a borrar: ');
+	writeln('ingrese el codigo de la mascota a borrar: ');
 	readln(codigoABorrar);
 	pos:=existeMascota(a,codigoABorrar);
 	if(pos <> 0)then begin // si es distinto de 0 es porque existe la mascota a borrar 
 		reset(a);
 		read(a,cabecera);
-		seek(a,filePos(pos));//me ubico en lugar donde se encuentra el registro a dar de baja
+		read(a,m);
+		while(m.cod <> codigoABorrar)do
+			read(a,m);
+		seek(a,filePos(a)-1);
+		//seek(a,filePos(pos));//me ubico en lugar donde se encuentra el registro a dar de baja(esto no se puede el filePos solo admite archivos)
 		write(a,cabecera);//escribo el registro cabecera
 		cabecera.cod:=(filePos(a)-1)*-1; // cambio su dni a negativo para marcar la baja
 		seek(a,0);

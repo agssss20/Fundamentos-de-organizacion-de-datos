@@ -54,10 +54,11 @@ type
 	end;
 	
 	maestro = file of TEquipo;
-	datalle = file of TPartido;
+	detalle = file of TPartido;
 	
 	//por cada detalle hay un registro del detalle
 	regDet = array[1..N]of TPartido;
+	
 	arrDet = array[1..N]of detalle; 
 
 procedure leer(var a:detalle; var dato:TPartido);//acordarse leer el detalle(no el maestro) , ya que con este actualizamos el maestro
@@ -65,7 +66,7 @@ begin
 	if(not(EOF(a)))then
 		read(a,dato)
 	else
-		a.codEquipo := VA;
+		dato.codEquipo := VA;
 end;
 
 
@@ -74,7 +75,7 @@ procedure minimo(var vDet:arrDet ; var rDet:regDet ; var min:TPartido);//buscamo
 var
 	i,posMin:integer;
 begin
-	posMin:=-1;min.codEquipo=:VA;
+	posMin:=-1;min.codEquipo:=VA;
 	for i:= 1 to N do begin
 		if(rDet[i].codEquipo < min.codEquipo)then begin
 			min:=rDet[i];
@@ -102,11 +103,10 @@ end;
 
 procedure ejercicio(var m:maestro ; var vDet: arrDet);
 var
-	i:integer; min:TPartido; total:integer;
+	i:integer; min:TPartido;
 	puntos,maxPuntos:integer; nombreMax:str30;
 	regM:TEquipo;
 	partidos:regDet;
-	nombreArchivo:str30;
 begin
 	maxPuntos:=-1;
 	asignarArchivos(m,vDet);
@@ -125,10 +125,10 @@ begin
 			puntos := puntos + min.cantPuntos;
 			regM.cantJ := regM.cantJ +1;
 			if(min.cantPuntos = 3)then
-				regM.cantG:=regM.cantG + 1;
+				regM.cantG:=regM.cantG + 1
 			else 
 				if(min.cantPuntos = 1)then
-					regM.cantE:=regM.cantE + 1;
+					regM.cantE:=regM.cantE + 1
 				else
 					regM.cantP:=regM.cantP + 1;
 			minimo(vDet,partidos,min);//sigo leyendo de los detalles

@@ -22,7 +22,7 @@ begin
 	read(a,e);//leo el de cabecera
 	while(not(EOF(a))and(num <> e.numero))do begin
 		read(a,e);
-		if(num = m.numero)then
+		if(num = e.numero)then
 			pos:=(filePos(a)-1);
 	end;
 	close(a);
@@ -35,8 +35,8 @@ var
 	e:empleado;
 begin
 	writeln('ingrese datos del empleado a agregar: ');//leo el empleado a desear de dar de alta
-	readln(e,e.numero,e.nombre,e.apellido);
-	readln(e,e.dni,e.fechaN,e.genero);
+	readln(e.numero,e.nombre,e.apellido);
+	readln(e.dni,e.fechaN,e.genero);
 	if(existeEmpleado(a,e.numero) = 0)then begin //si es 0 es porque no existe
 		reset(a);
 		read(a,cabecera); //uso mi registro cabecera con mi lista invertida para poner el registro a dar de alta en el lugar deseado
@@ -62,15 +62,19 @@ end;
 procedure bajaEmpleado(var a:tArchivo);
 var
 	numeroABorrar,pos:integer;
-	cabecera:empleado; //el de cabecera para actualizar la lista 
+	cabecera,e:empleado; //el de cabecera para actualizar la lista 
 begin
-	wrieln('ingrese el numero de empleado a borrar: ');
+	writeln('ingrese el numero de empleado a borrar: ');
 	readln(numeroABorrar);
 	pos:=existeEmpleado(a,numeroABorrar);
 	if(pos <> 0)then begin // si es distinto de 0 es porque existe el empleado a borrar 
 		reset(a);
 		read(a,cabecera);
-		seek(a,filePos(pos));//me ubico en lugar donde se encuentra el registro a dar de baja
+		read(a,e);
+		while(e.numero <> numeroABorrar)do
+			read(a,e);
+		seek(a,filePos(a)-1);
+		//seek(a,filePos(pos));//me ubico en lugar donde se encuentra el registro a dar de baja(esto no se puede el filePos solo admite archivos)
 		write(a,cabecera);//escribo el registro cabecera
 		cabecera.numero:=(filePos(a)-1)*-1; // cambio su numero a negativo para marcar la baja
 		seek(a,0);
