@@ -70,8 +70,8 @@ begin
 	pos:=existeMascota(a,codigoABorrar);
 	if(pos <> 0)then begin // si es distinto de 0 es porque existe la mascota a borrar 
 		reset(a);
-		read(a,cabecera);
-		read(a,m);
+		read(a,cabecera);//salto el de cabecera
+		read(a,m);//leo las mascotas que siguen
 		while(m.cod <> codigoABorrar)do
 			read(a,m);
 		seek(a,filePos(a)-1);
