@@ -34,7 +34,7 @@ extraerAño(fecha) que, a partir de una fecha dada, devuelve el año de la misma
 NO es necesario que se incluyan los espacios en blanco o tabulaciones que se incluyen en el
 informe de modo como ejemplo.
 }
-
+//corregido
 program untitled;
 const 
 	VA=9999;

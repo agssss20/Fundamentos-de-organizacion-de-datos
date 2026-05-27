@@ -28,7 +28,7 @@ que los nombres ingresados corresponden a archivos existentes.
 Si un equipo A jugó un partido contra un equipo B, en un archivo detalle aparecerán dos registros
 separados: uno para el equipo A, y otro para el equipo B. Los partidos se registran de forma
 independiente para cada equipo.}
-
+//corregido
 
 program untitled;
 const

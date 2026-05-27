@@ -34,7 +34,7 @@ actualización del archivo maestro con los archivos detalles, así como la gener
 del archivo de texto solicitado
 }
 
-
+//corregido
 program untitled;
 const
 	VA = 9999;

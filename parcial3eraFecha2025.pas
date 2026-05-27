@@ -1,4 +1,4 @@
-
+//corregido
 program untitled;
 type
 	mascota=record

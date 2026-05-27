@@ -21,7 +21,7 @@ nombres ingresados corresponden a archivos existentes.
 Nota 2: El informe debe incluir cualquier municipio que cumpla la condición,
 independientemente de si se actualiza o no.
 }
-
+//corregido
 
 program untitled;
 const 
@@ -107,10 +107,13 @@ begin
 		leer(vDet[i],casosDetalle[i]);//guardo el registro de los detalles en casosDetalle
 	end;
 	minimo(vDet,casosDetalle,min);//agarro el minimo
-	while(min.codMunicipio <> VA)do begin
+	while(min.codMunicipio <> VA)do begin//Nota 2: El informe debe incluir cualquier municipio que cumpla la condición, independientemente de si se actualiza o no.
 		read(m,regM);
-		while(regM.codMunicipio <> min.codMunicipio)do // el maestro esta ordenado por codigo de municipio
+		{while(regM.codMunicipio <> min.codMunicipio)do begin// el maestro esta ordenado por codigo de municipio
+			if(regM.cantCasosPositivos > 15)then // recalcule los casos y pregunto si superan los 15 casos
+				writeln('cod municipio: ',regM.codMunicipio,' nom municipio: ',regM.nomMunicipio);
 			read(m,regM);
+		end; ESTO ESTA MAL.}
 		casosTotales:=0;
 		while(regM.codMunicipio = min.codMunicipio)do begin //El orden de cada archivo detalle es por código de municipio. En cada archivo puede venir información de cualquier municipio, y municipio puede aparecer cero o más de una vez en cada archivo.
 			casosTotales:= casosTotales + min.cantCasosPositivos;
@@ -119,16 +122,22 @@ begin
 		regM.cantCasosPositivos := regM.cantCasosPositivos + casosTotales;// sumo los casos
 		if(regM.cantCasosPositivos > 15)then // recalcule los casos y pregunto si superan los 15 casos
 			writeln('cod municipio: ',regM.codMunicipio,' nom municipio: ',regM.nomMunicipio);
-		seek(m,filePos(m)-1);//muevo el puntero a la anterior posicion
-		write(m,regM);//modifico el maestro
+		if(regM.codMunicipio = min.codMunicipio)then begin
+			seek(m,filePos(m)-1);//muevo el puntero a la anterior posicion
+			write(m,regM);//modifico el maestro
+		end;
 	end;
 	close(m);//guardo las modificaciones del maestro
 	for i := 1 to N do
 		close(vDet[i]);//guardo las modificaciones de los detalles
 end;
 
+BEGIN
+END.
 
 
+{
+//corregido
 
 //ARBOLES punto a
 
@@ -150,10 +159,10 @@ type
 	arbolB = file of tNodo;
 
 var
-	archivoDatos:tArchivoDatos;
-	archivoIndice:arbolB;
+	//archivoDatos:tArchivoDatos;
+	//archivoIndice:arbolB;
 
 
 BEGIN
 END.
-
+}
